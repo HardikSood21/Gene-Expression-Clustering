@@ -14,7 +14,7 @@ By implementing a pipeline of dimensionality reduction (**PCA**, **t-SNE**) and 
 ---
 
 ## 🧬 The Data
-**Dataset:** [UCI Gene Expression Cancer RNA-Seq](https://www.kaggle.com/datasets/muratkokludataset/gene-expression-cancer-rna-seq)
+**Dataset:** [UCI Gene Expression Cancer RNA-Seq](https://www.kaggle.com/datasets/waalbannyantudre/gene-expression-cancer-rna-seq-donated-on-682016?select=data.csv)
 * **Samples:** 801 patients
 * **Features:** 20,531 genes (High-dimensional RNA-Seq data)
 * **Classes:** 5 distinct tumor types
@@ -49,19 +49,15 @@ By implementing a pipeline of dimensionality reduction (**PCA**, **t-SNE**) and 
 ### 1. Principal Component Analysis (PCA)
 *PCA successfully separated Kidney (KIRC) and Prostate (PRAD) cancers, but showed overlap between Breast, Lung, and Colon cancers.*
 
-![PCA Plot](<img width="850" height="694" alt="2D pca gene expression" src="https://github.com/user-attachments/assets/e87212cf-7e5c-438b-95d7-898be4a9f6cf" />
-)
 
 ### 2. t-SNE Visualization
 *t-SNE successfully unraveled the complex non-linear relationships, creating 5 clear, distinct "islands" for each cancer subtype.*
 
-![t-SNE Plot](<img width="842" height="694" alt="tsne graph" src="https://github.com/user-attachments/assets/b3311848-0055-4365-a589-066edf52f798" />
-)
 
 ### 3. Clustering Accuracy
 The **K-Means** algorithm (blind to the actual labels) grouped the patients with high precision.
-![K-Means Plot](<img width="842" height="694" alt="kmeans_clustering_accuarcy" src="https://github.com/user-attachments/assets/22ae4383-7bdb-4088-8d4a-f2f4cadd352f" />
-)
+
+
 * **Adjusted Rand Index (ARI):** `0.97` (0.0 = Random, 1.0 = Perfect)
 
 ---
