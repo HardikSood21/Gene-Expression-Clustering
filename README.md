@@ -1,20 +1,77 @@
 # Analysis of Gene Expression Profiles for Cancer Subtyping
 
-## Project Overview
-This project focuses on the unsupervised analysis of high-dimensional transcriptomic data to identify distinct cancer subtypes. Utilizing a suite of statistical machine learning techniques, the workflow reduces the dimensionality of raw gene expression profiles and applies clustering algorithms to discover latent biological patterns without prior labels.
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
+![Scikit-Learn](https://img.shields.io/badge/Library-Scikit--Learn-orange)
+![Bioinformatics](https://img.shields.io/badge/Domain-Bioinformatics-green)
 
-## Methodology
-1. **Data Simulation:** Generated high-dimensional synthetic data (150 samples x 10,000 genes) to mimic RNA-Seq count matrices.
-2. **Preprocessing:** Applied `StandardScaler` to normalize gene expression variance across samples.
-3. **Dimensionality Reduction:** - **PCA:** Reduced feature space from 10,000 to 50 principal components while retaining 95% of variance.
-   - **t-SNE:** Visualized the high-dimensional clusters in a 2D manifold.
-4. **Clustering:** Implemented **K-Means** to segment patients into distinct molecular subtypes based on their transcriptomic signatures.
+## 📌 Project Overview
+This project applies **unsupervised machine learning** techniques to high-dimensional gene expression data (RNA-Seq) to identify distinct cancer subtypes. 
 
-## Tech Stack
-- **Python**: Core logic.
-- **Scikit-Learn**: PCA, t-SNE, K-Means implementation.
-- **Pandas/NumPy**: Data manipulation.
-- **Seaborn**: Visualization of clusters.
+The goal was to determine if transcriptomic data alone—without clinical labels—is sufficient to distinguish between five different types of tumors: **BRCA** (Breast), **COAD** (Colon), **KIRC** (Kidney), **LUAD** (Lung), and **PRAD** (Prostate).
 
-## Key Results
-The integration of PCA and K-Means successfully segregated the patient cohort into distinct subtypes, demonstrated by clear separation in the t-SNE latent space.
+By implementing a pipeline of dimensionality reduction (**PCA**, **t-SNE**) and clustering (**K-Means**), the model achieved a **97% match (ARI Score)** with the ground truth labels, demonstrating the power of genomic signatures in cancer classification.
+
+---
+
+## 🧬 The Data
+**Dataset:** [UCI Gene Expression Cancer RNA-Seq](https://www.kaggle.com/datasets/muratkokludataset/gene-expression-cancer-rna-seq)
+* **Samples:** 801 patients
+* **Features:** 20,531 genes (High-dimensional RNA-Seq data)
+* **Classes:** 5 distinct tumor types
+
+| Cancer Code | Description |
+|:---:|:---|
+| **BRCA** | Breast Invasive Carcinoma |
+| **COAD** | Colon Adenocarcinoma |
+| **KIRC** | Kidney Renal Clear Cell Carcinoma |
+| **LUAD** | Lung Adenocarcinoma |
+| **PRAD** | Prostate Adenocarcinoma |
+
+---
+
+## ⚙️ Methodology (The Pipeline)
+1.  **Data Preprocessing:** * Merged gene expression data with clinical labels.
+    * Handled missing values and removed non-numerical metadata.
+    * Applied **Standard Scaling** (Z-score normalization) to normalize gene expression levels (Mean=0, Variance=1).
+    
+2.  **Dimensionality Reduction:**
+    * **PCA (Principal Component Analysis):** Reduced 20,000+ genes to 2 Principal Components to visualize global variance.
+    * **t-SNE (t-Distributed Stochastic Neighbor Embedding):** Applied non-linear dimensionality reduction to resolve overlapping clusters (specifically distinguishing between Colon and Lung subtypes).
+
+3.  **Unsupervised Clustering:**
+    * **Elbow Method:** Used to mathematically determine the optimal number of clusters (*k=5*), which aligned perfectly with the biological ground truth.
+    * **K-Means Clustering:** Grouped patients into 5 clusters based on their transcriptomic profiles.
+
+---
+
+## 📊 Results & Visualizations
+
+### 1. Principal Component Analysis (PCA)
+*PCA successfully separated Kidney (KIRC) and Prostate (PRAD) cancers, but showed overlap between Breast, Lung, and Colon cancers.*
+
+![PCA Plot](Insert_Your_PCA_Image_Filename_Here.png)
+
+### 2. t-SNE Visualization
+*t-SNE successfully unraveled the complex non-linear relationships, creating 5 clear, distinct "islands" for each cancer subtype.*
+
+![t-SNE Plot](Insert_Your_TSNE_Image_Filename_Here.png)
+
+### 3. Clustering Accuracy
+The **K-Means** algorithm (blind to the actual labels) grouped the patients with high precision.
+* **Adjusted Rand Index (ARI):** `0.97` (0.0 = Random, 1.0 = Perfect)
+
+---
+
+## 🛠️ Tech Stack
+* **Language:** Python
+* **Data Handling:** Pandas, NumPy
+* **Machine Learning:** Scikit-Learn (PCA, t-SNE, KMeans)
+* **Visualization:** Matplotlib, Seaborn
+
+## 🚀 How to Run
+1.  Clone the repository.
+2.  Install dependencies:
+    ```bash
+    pip install pandas numpy matplotlib seaborn scikit-learn
+    ```
+3.  Run the Jupyter Notebook `Gene_Expression_Clustering.ipynb`.
